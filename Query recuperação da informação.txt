@@ -1,0 +1,46 @@
+Recuperações Simples com SELECT Statement:
+sql
+Copy code
+-- Seleciona todos os clientes
+SELECT * FROM Cliente;
+
+-- Seleciona todos os pedidos
+SELECT * FROM Pedido;
+
+-- Seleciona todos os produtos
+SELECT * FROM Produto;
+Filtros com WHERE Statement:
+sql
+Copy code
+-- Seleciona pedidos feitos por um cliente específico (por exemplo, cliente com ID 123)
+SELECT * FROM Pedido WHERE ID_Cliente = 123;
+
+-- Seleciona produtos com preço acima de 50
+SELECT * FROM Produto WHERE Preco > 50;
+Crie Expressões para Gerar Atributos Derivados:
+sql
+Copy code
+-- Calcula o valor total de cada produto no pedido
+SELECT *, (Preco * Quantidade) AS Total_Produto FROM Produto JOIN Pedido_Produto ON Produto.ID_Produto = Pedido_Produto.ID_Produto;
+Defina Ordenações dos Dados com ORDER BY:
+sql
+Copy code
+-- Lista os produtos em ordem decrescente de preço
+SELECT * FROM Produto ORDER BY Preco DESC;
+
+-- Lista os clientes em ordem alfabética de nome
+SELECT * FROM Cliente ORDER BY Nome ASC;
+Condições de Filtros aos Grupos – HAVING Statement:
+sql
+Copy code
+-- Lista os fornecedores que fornecem mais de 5 produtos
+SELECT ID_Fornecedor, COUNT(*) AS Total_Produtos FROM Produto GROUP BY ID_Fornecedor HAVING COUNT(*) > 5;
+Crie Junções Entre Tabelas para Fornecer uma Perspectiva Mais Complexa dos Dados:
+sql
+Copy code
+-- Retorna detalhes do pedido, cliente, produto e quantidade de produtos em cada pedido
+SELECT Pedido.ID_Pedido, Cliente.Nome AS Nome_Cliente, Produto.Nome AS Nome_Produto, Pedido_Produto.Quantidade 
+FROM Pedido 
+JOIN Cliente ON Pedido.ID_Cliente = Cliente.ID_Cliente 
+JOIN Pedido_Produto ON Pedido.ID_Pedido = Pedido_Produto.ID_Pedido 
+JOIN Produto ON Pedido_Produto.ID_Produto = Produto.ID_Produto;
