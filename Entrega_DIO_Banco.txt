@@ -1,0 +1,109 @@
+Entidades do Modelo ER e seus Atributos:
+Cliente:
+
+ID_Cliente (PK)
+Nome
+Email
+Tipo
+CPF
+CNPJ
+Pedido:
+
+ID_Pedido (PK)
+Data_Pedido
+Valor_Total
+ID_Cliente (FK)
+Produto:
+
+ID_Produto (PK)
+Nome
+Preço
+ID_Fornecedor (FK)
+Fornecedor:
+
+ID_Fornecedor (PK)
+Nome
+CNPJ
+Pagamento:
+
+ID_Pagamento (PK)
+Método
+Valor
+ID_Pedido (FK)
+Entrega:
+
+ID_Entrega (PK)
+Status
+Código_Rastreio
+ID_Pedido (FK)
+Tabelas Resultantes do Mapeamento Relacional:
+Tabela Cliente:
+
+ID_Cliente (PK)
+Nome
+Email
+Tipo
+CPF
+CNPJ
+Tabela Pedido:
+
+ID_Pedido (PK)
+Data_Pedido
+Valor_Total
+ID_Cliente (FK)
+Tabela Produto:
+
+ID_Produto (PK)
+Nome
+Preço
+ID_Fornecedor (FK)
+Tabela Fornecedor:
+
+ID_Fornecedor (PK)
+Nome
+CNPJ
+Tabela Pagamento:
+
+ID_Pagamento (PK)
+Método
+Valor
+ID_Pedido (FK)
+Tabela Entrega:
+
+ID_Entrega (PK)
+Status
+Código_Rastreio
+ID_Pedido (FK)
+Tabelas de Associação:
+Tabela Pedido_Produto:
+ID_Pedido (FK)
+ID_Produto (FK)
+Quantidade
+Queries SQL Exemplares (conforme solicitado):
+Quantos pedidos foram feitos por cada cliente?
+sql
+Copy code
+SELECT c.Nome, COUNT(p.ID_Pedido) AS Total_Pedidos
+FROM Cliente c
+JOIN Pedido p ON c.ID_Cliente = p.ID_Cliente
+GROUP BY c.Nome;
+Algum vendedor também é fornecedor?
+sql
+Copy code
+SELECT f.Nome
+FROM Fornecedor f
+JOIN Produto pd ON f.ID_Fornecedor = pd.ID_Fornecedor;
+Relação de produtos fornecedores e estoques:
+sql
+Copy code
+SELECT pd.Nome AS Produto, f.Nome AS Fornecedor, SUM(pp.Quantidade) AS Estoque
+FROM Produto pd
+JOIN Fornecedor f ON pd.ID_Fornecedor = f.ID_Fornecedor
+JOIN Pedido_Produto pp ON pd.ID_Produto = pp.ID_Produto
+GROUP BY pd.Nome, f.Nome;
+Relação de nomes dos fornecedores e nomes dos produtos:
+sql
+Copy code
+SELECT f.Nome AS Fornecedor, pd.Nome AS Produto
+FROM Fornecedor f
+JOIN Produto pd ON f.ID_Fornecedor = pd.ID_Fornecedor;
